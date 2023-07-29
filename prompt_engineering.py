@@ -1,5 +1,6 @@
 from langchain import PromptTemplate
 from langchain.prompts.pipeline import PipelinePromptTemplate
+import streamlit as st
 
 questions = [
     "To begin with your name, can you please share in 30 words an ambitious aspiration that you want to work on and why?",
@@ -38,6 +39,8 @@ prompt = PromptTemplate(
 
 for i in range(0, len(questions)):
     question_template = questions[i]
-    answer_template = input(question_template + "\n")
+    answer_template = st.text_area(question_template)
     out = prompt.format(introduction=introduction_template, my_question=question_template, my_answer=answer_template)
-    print(out)
+    if st.button(label=f"Submit Question: {i}"):
+        st.write(out)
+
